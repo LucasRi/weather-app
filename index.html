@@ -10,64 +10,75 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin">
+    
 </head>
 
 <body>
     <div class="container">
         <header>
-        <div class="header-info">
-            <div id="date"></div>
-            <div class="location"><img src="/src/img/location.svg" alt=""><p id="location">Bratislava,</p>
-            <span id="country"></span></div>
-        </div>
-        <div class="dark-mode">
-            <img id="light-mode" src="/src/img/light-mode.svg" alt="">
-            <img id="dark-mode" class="mode-active" src="/src/img/dark-mode.svg" alt="">
-        </div>
-    </header>
-
-    <main>
-        <div class="search">
-            <button class="search-btn" type="submit"><img src="/src/img/search-icon.svg" alt=""></button>
-            <input type="search" placeholder="" name="" id="search" value="Bratislava">
-        </div>
-        <div class="weather">
-            <img id="weather-icon" src="/src/img/weather-icons/thunder.svg" alt="">
-            <p id="weather-description"></p>
-            <div class="temperature">
-                <p id="temperature"></p><span>º</span>
-            </div>
-        </div>
-        <div class="weather-info">
-
-            <img id="weather-info-icon" src="/src/img/weather-icons/thunder.svg" alt="">
-
-            <div class="weather-info-left">
-                <div class="weather-info-item">
-                    <h3>UV index</h3>
-                    <p id="uvindex"></p>
-                </div>
-                <div class="weather-info-item">
-                    <h3>Humidity</h3>
-                    <p id="humidity"></p>
+            <div class="header-info">
+                <div id="date"></div>
+                <div class="location"><img src="/src/img/location.svg" alt="">
+                    <p id="location">Bratislava,</p>
+                    <span id="country"></span>
                 </div>
             </div>
+            <div class="dark-mode">
+                <img id="light-mode" src="/src/img/light-mode.svg" alt="">
+                <img id="dark-mode" class="mode-active" src="/src/img/dark-mode.svg" alt="">
+            </div>
+        </header>
 
-            <div class="weather-info-right">
-                <div class="weather-info-item">
-                    <h3>Wind</h3>
-                    <p id="wind"></p>
-                </div>
-                <div class="weather-info-item">
-                    <h3>Pressure</h3>
-                    <p id="pressure"></p>
+        <main>
+            <div class="search">
+                <button class="search-btn"><img src="/src/img/search-icon.svg" alt=""></button>
+                <input type="text" id="search-bar" class="search-bar">
+            </div>
+            <div class="weather">
+                <img id="weather-icon" src="/src/img/weather-icons/thunder.svg" alt="">
+                <p id="weather-description"></p>
+                <div class="temperature">
+                    <p id="temperature"></p><span>º</span>
                 </div>
             </div>
+            <div class="weather-info">
 
-        </div>
-    </main>
+                <img id="weather-info-icon" src="/src/img/weather-icons/thunder.svg" alt="">
 
-    <!--<nav>
+                <div class="weather-info-left">
+                    <div class="weather-info-item">
+                        <h3>Max temperature</h3>
+                        <p id="max-temperature"></p>
+                    </div>
+                    <div class="weather-info-item">
+                        <h3>Humidity</h3>
+                        <p id="humidity"></p>
+                    </div>
+                    <div class="weather-info-item">
+                        <h3>Feels like</h3>
+                        <p id="feels_like"></p>
+                    </div>
+                </div>
+
+                <div class="weather-info-right">
+                    <div class="weather-info-item">
+                        <h3>Min temperature</h3>
+                        <p id="min-temperature"></p>
+                    </div>
+                    <div class="weather-info-item">
+                        <h3>Pressure</h3>
+                        <p id="pressure"></p>
+                    </div>
+                    <div class="weather-info-item">
+                        <h3>Wind</h3>
+                        <p id="wind"></p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!--<nav>
         <ul>
             <li><a href=""><img src="/src/img/menu-home-icon.svg" alt=""></a></li>
             <li><a href=""><img src="/src/img/menu-search-icon.svg" alt=""></a></li>
@@ -76,7 +87,7 @@
         </ul>
     </nav>-->
     </div>
-    
+
 
 
     <script src="/app.js"></script>
