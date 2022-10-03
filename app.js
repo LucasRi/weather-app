@@ -1,64 +1,52 @@
 window.addEventListener("load", () => {
     let client_ipadress;
-
     $.getJSON('https://ipgeolocation.abstractapi.com/v1/?api_key=91a3ae08f6c9403899a1d877f71345e0', function (data) {
         client_ipadress = data.city;
         $("#location").text(`${data.city}`);
         console.log(client_ipadress);
+        let long;
+        let lat;
+        long = data.longitude;
+        lat = data.latitude;
 
-        const apilocation = `https://api.openweathermap.org/geo/1.0/direct?q=${client_ipadress}&appid=9a940b74ba054ec407a90bf5159392db`
-        fetch(apilocation)
+        api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&lang=sk&appid=9a940b74ba054ec407a90bf5159392db`
+        fetch(api)
             .then(response => {
                 return response.json();
             })
             .then(data => {
                 console.log(data);
-                let long;
-                let lat;
-                long = data[0].lon;
-                lat = data[0].lat;
+                var tempnumber = data.main.temp;
+                tempnumber = tempnumber.toFixed(0);
+                var maxtemperature = data.main.temp_max;
+                maxtemperature = maxtemperature.toFixed(0);
+                var mintemperature = data.main.temp_min;
+                mintemperature = mintemperature.toFixed(0);
+                var feels_like = data.main.feels_like;
+                feels_like = feels_like.toFixed(0);
+                var currentTimeFunction = new Date();
+                var currentMonthNumber = currentTimeFunction.getMonth();
+                var months = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+                var selectedMonthName = months[currentMonthNumber];
 
-                api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&lang=sk&appid=9a940b74ba054ec407a90bf5159392db`
-                fetch(api)
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data);
-                        var tempnumber = data.main.temp;
-                        tempnumber = tempnumber.toFixed(0);
-                        var maxtemperature = data.main.temp_max;
-                        maxtemperature = maxtemperature.toFixed(0);
-                        var mintemperature = data.main.temp_min;
-                        mintemperature = mintemperature.toFixed(0);
-                        var feels_like = data.main.feels_like;
-                        feels_like = feels_like.toFixed(0);
-                        var currentTimeFunction = new Date();
-                        var currentMonthNumber = currentTimeFunction.getMonth();
-                        var months = ["January", "February", "March", "April", "May", "June",
-                            "July", "August", "September", "October", "November", "December"];
-                        var selectedMonthName = months[currentMonthNumber];
+                var time = currentTimeFunction.getDate() + ', ' + selectedMonthName + ' ' + currentTimeFunction.getFullYear();
+                $("#date").text(`${time}`);
+                $("#location").text(`${data.name}`);
+                if (data.sys.country = 'SK') {
+                    $("#country").text(`Slovakia`);
+                }
+                $("#max-temperature").text(`${maxtemperature} º`);
+                $("#min-temperature").text(`${mintemperature} º`);
+                $("#temperature").text(`${tempnumber}`);
+                $("#feels_like").text(`${feels_like} º`);
+                $("#weather-description").text(`${data.weather[0].description}`);
+                $("#humidity").text(`${data.main.humidity}%`);
+                $("#wind").text(`${data.wind.speed} km/h`);
+                $("#pressure").text(`${data.main.pressure} hPa`);
+                $("#weather-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
+                $("#weather-info-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
 
-                        console.log(currentMonthNumber);
-
-                        var time = currentTimeFunction.getDate() + ', ' + selectedMonthName + ' ' + currentTimeFunction.getFullYear();
-                        $("#date").text(`${time}`);
-                        $("#location").text(`${data.name}`);
-                        if (data.sys.country = 'SK') {
-                            $("#country").text(`Slovakia`);
-                        }
-                        $("#max-temperature").text(`${maxtemperature} º`);
-                        $("#min-temperature").text(`${mintemperature} º`);
-                        $("#temperature").text(`${tempnumber}`);
-                        $("#feels_like").text(`${feels_like} º`);
-                        $("#weather-description").text(`${data.weather[0].description}`);
-                        $("#humidity").text(`${data.main.humidity}%`);
-                        $("#wind").text(`${data.wind.speed} km/h`);
-                        $("#pressure").text(`${data.main.pressure} hPa`);
-                        $("#weather-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
-                        $("#weather-info-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
-
-                    })
             })
 
 
@@ -66,7 +54,67 @@ window.addEventListener("load", () => {
 });
 
 
+const inputTxt = document.querySelector('.search-bar');
+var button = document.querySelector('.search-btn');
 
+button.addEventListener('click', () => {
+    const cityInput = inputTxt.value;
+    console.log(cityInput);
+
+    apiSearch = `http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&appid=9a940b74ba054ec407a90bf5159392db`
+    fetch(apiSearch)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            let lat;
+            let long;
+            lat = data.lat;
+            long = data.lon;
+            console.log(lat);
+            console.log(long);
+
+            apifromsearch = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&lang=sk&appid=9a940b74ba054ec407a90bf5159392db`
+            fetch(apifromsearch)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    var tempnumber = data.main.temp;
+                    tempnumber = tempnumber.toFixed(0);
+                    var maxtemperature = data.main.temp_max;
+                    maxtemperature = maxtemperature.toFixed(0);
+                    var mintemperature = data.main.temp_min;
+                    mintemperature = mintemperature.toFixed(0);
+                    var feels_like = data.main.feels_like;
+                    feels_like = feels_like.toFixed(0);
+                    var currentTimeFunction = new Date();
+                    var currentMonthNumber = currentTimeFunction.getMonth();
+                    var months = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+                    var selectedMonthName = months[currentMonthNumber];
+
+                    var time = currentTimeFunction.getDate() + ', ' + selectedMonthName + ' ' + currentTimeFunction.getFullYear();
+                    $("#date").text(`${time}`);
+                    $("#location").text(`${data.name}`);
+                    if (data.sys.country = 'SK') {
+                        $("#country").text(`Slovakia`);
+                    }
+                    $("#max-temperature").text(`${maxtemperature} º`);
+                    $("#min-temperature").text(`${mintemperature} º`);
+                    $("#temperature").text(`${tempnumber}`);
+                    $("#feels_like").text(`${feels_like} º`);
+                    $("#weather-description").text(`${data.weather[0].description}`);
+                    $("#humidity").text(`${data.main.humidity}%`);
+                    $("#wind").text(`${data.wind.speed} km/h`);
+                    $("#pressure").text(`${data.main.pressure} hPa`);
+                    $("#weather-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
+                    $("#weather-info-icon").attr("src", `/src/img/weather-icons/sun-cloud-rain.svg`);
+
+                })
+        });
+});
 
 
 

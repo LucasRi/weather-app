@@ -38,7 +38,7 @@ header {
 
 .location {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 #date {
